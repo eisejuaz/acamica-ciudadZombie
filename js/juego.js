@@ -21,8 +21,9 @@ var Juego = {
     /*Aca se van a agregar los obstaculos visibles. Tenemos una valla horizontal
     de ejemplo, pero podras agregar muchos mas. */
     new Obstaculo('imagenes/valla_horizontal.png', 70, 430, 30, 30, 1),
-    new Obstaculo('imagenes/valla_horizontal.png', 95, 430, 50, 40, 1)
-
+    new Obstaculo('imagenes/valla_horizontal.png', 150, 430, 30, 30, 1),
+    new Obstaculo('imagenes/valla_vertical.png', 120, 370, 30, 30, 1),
+    new Obstaculo('imagenes/bache.png', 560, 250, 30, 30, 2)
   ],
   /* Estos son los bordes con los que se puede chocar, por ejemplo, la vereda.
    Ya estan ubicados en sus lugares correspondientes. Ya aparecen en el mapa, ya
@@ -45,7 +46,7 @@ var Juego = {
   ],
   // Los enemigos se agregaran en este arreglo.
   enemigos: [
-    // Dibujante.dibujarEntidad(ZombieCaminante)
+  
   ]
 
 }
@@ -116,15 +117,27 @@ Juego.capturarMovimiento = function(tecla) {
   // El movimiento esta determinado por la velocidad del jugador
   if (tecla == 'izq') {
     movX = -velocidad;
+    Jugador.alto = 15;
+    Jugador.ancho = 30;
+    Jugador.sprite = 'imagenes/auto_rojo_izquierda.png';
   }
   if (tecla == 'arriba') {
     movY = -velocidad;
+    Jugador.alto = 30;
+    Jugador.ancho = 15;
+    Jugador.sprite = 'imagenes/auto_rojo_arriba.png';
   }
   if (tecla == 'der') {
     movX = velocidad;
+    Jugador.alto = 15;
+    Jugador.ancho = 30;
+    Jugador.sprite = 'imagenes/auto_rojo_derecha.png';
   }
   if (tecla == 'abajo') {
     movY = velocidad;
+    Jugador.alto = 30;
+    Jugador.ancho = 15;
+    Jugador.sprite = 'imagenes/auto_rojo_abajo.png';
   }
 
   // Si se puede mover hacia esa posicion hay que hacer efectivo este movimiento
@@ -133,6 +146,8 @@ Juego.capturarMovimiento = function(tecla) {
     de sus metodos  */
 
     /* COMPLETAR */
+    Jugador.mover(movX, movY);
+
   }
 };
 
@@ -203,7 +218,7 @@ Juego.chequearColisiones = function(x, y) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
 
       /*COMPLETAR, obstaculo debe chocar al jugador*/
-
+      obstaculo.chocar(this.jugador);
       puedeMoverse = false
     }
   }, this)
