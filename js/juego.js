@@ -46,7 +46,8 @@ var Juego = {
   ],
   // Los enemigos se agregaran en este arreglo.
   enemigos: [
-  
+    new ZombieCaminante('imagenes/zombie1.png', 500, 100, 10, 10, 10, {desdeX: 500, hastaX: 550, desdeY: 200, hastaY: 230}),
+    new ZombieCaminante('imagenes/zombie1.png', 510, 120, 10, 10, 10, {desdeX: 500, hastaX: 550, desdeY: 200, hastaY: 230})
   ]
 
 }
@@ -139,7 +140,6 @@ Juego.capturarMovimiento = function(tecla) {
     Jugador.ancho = 15;
     Jugador.sprite = 'imagenes/auto_rojo_abajo.png';
   }
-
   // Si se puede mover hacia esa posicion hay que hacer efectivo este movimiento
   if (this.chequearColisiones(movX + this.jugador.x, movY + this.jugador.y)) {
     /* Aca tiene que estar la logica para mover al jugador invocando alguno
@@ -156,13 +156,15 @@ Juego.dibujar = function() {
   Dibujante.borrarAreaDeJuego();
   //Se pinta la imagen de fondo segun el estado del juego
   this.dibujarFondo();
+  Dibujante.dibujarRectangulo('white', 770, 520, 105, 30);
 
 
   /* Aca hay que agregar la logica para poder dibujar al jugador principal
   utilizando al dibujante y los metodos que nos brinda.
   "Dibujante dibuja al jugador" */
-  Dibujante.dibujarEntidad(Jugador);
+  
   /* Completar */
+  Dibujante.dibujarEntidad(Jugador);
 
   // Se recorren los obstaculos de la carretera pintandolos
   this.obstaculosCarretera.forEach(function(obstaculo) {
@@ -172,6 +174,7 @@ Juego.dibujar = function() {
   // Se recorren los enemigos pintandolos
   this.enemigos.forEach(function(enemigo) {
     /* Completar */
+    Dibujante.dibujarEntidad(enemigo);
   });
 
   // El dibujante dibuja las vidas del jugador
@@ -219,7 +222,7 @@ Juego.chequearColisiones = function(x, y) {
 
       /*COMPLETAR, obstaculo debe chocar al jugador*/
       obstaculo.chocar(this.jugador);
-      puedeMoverse = false
+      puedeMoverse = false;
     }
   }, this)
   return puedeMoverse
@@ -279,4 +282,7 @@ document.addEventListener('keydown', function(e) {
   };
 
   Juego.capturarMovimiento(allowedKeys[e.keyCode]);
+
+  
+
 });
