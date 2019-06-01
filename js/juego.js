@@ -113,10 +113,15 @@ Juego.comenzar = function () {
 };
 
 Juego.buclePrincipal = function () {
-  // Con update se actualiza la logica del juego, tanto ataques como movimientos
-  this.update();
-  // Funcion que dibuja por cada fotograma a los objetos en pantalla.
-  this.dibujar();
+  if (!this.terminoJuego() && !this.ganoJuego()) {
+    // Con update se actualiza la logica del juego, tanto ataques como movimientos
+    this.update();
+    // Funcion que dibuja por cada fotograma a los objetos en pantalla.
+    this.dibujar();
+  } else {
+    Dibujante.borrarAreaDeJuego();
+    this.dibujarFondo();
+  }
   // Esto es una forma de llamar a la funcion Juego.buclePrincipal() repetidas veces
   window.requestAnimationFrame(this.buclePrincipal.bind(this));
 };
